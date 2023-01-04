@@ -1,10 +1,10 @@
-import Nav from '../components/Nav.jsx';
+import Hero from '../components/Hero';
 import '../utils/style/App.css';
 
 function App() {
   return (
     <div className="App">
-      <Nav />
+      <Hero />
     </div>
   );
 }
