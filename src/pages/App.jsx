@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import Features from '../components/Features';
 import Hero from '../components/Hero';
 import '../utils/style/App.css';
 
 function App() {
+  useEffect(() => { document.title = "Argent Bank - Accueil" })
   return (
     <div className="App">
       <Hero />
