@@ -7,7 +7,7 @@ function SignIn() {
     useEffect(() => { document.title = "Argent Bank - Connexion" })
     return (
         <div>
-            <Nav />
+            <Nav isSignIn={false} />
             <div className="main bg-dark">
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>

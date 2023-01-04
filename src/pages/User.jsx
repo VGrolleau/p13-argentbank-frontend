@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import NavSignOut from "../components/NavSignOut";
+import Nav from "../components/Nav";
 import "../utils/style/User.css";
-import { users } from "../services/MockedData";
+// import { users } from "../services/MockedData";
 
 function User() {
     useEffect(() => { document.title = "Argent Bank - Utilisateur" })
     // console.log(users);
     return (
         <div>
-            <NavSignOut />
+            <Nav isSignIn={true} />
             <div className="main bg-dark">
                 <div className="header">
                     <h1>Welcome back<br />Tony Jarvis!</h1>

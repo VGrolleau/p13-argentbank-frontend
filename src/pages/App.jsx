@@ -8,7 +8,7 @@ function App() {
   useEffect(() => { document.title = "Argent Bank - Accueil" })
   return (
     <div className="App">
-      <Nav />
+      <Nav isSignIn={false} />
       <Hero />
       <Features />
     </div>
