@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import NavSignOut from "../components/NavSignOut";
 import "../utils/style/User.css";
+import { users } from "../services/MockedData";
 
 function User() {
+    useEffect(() => { document.title = "Argent Bank - Utilisateur" })
+    // console.log(users);
     return (
         <div>
             <NavSignOut />
