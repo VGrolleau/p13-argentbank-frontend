@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 
 function Nav(props) {
     const IS_SIGN_IN = props.isSignIn;
-    console.log(IS_SIGN_IN);
     return (
         <nav className="main-nav">
             <NavLink to="/" className="main-nav-logo">
