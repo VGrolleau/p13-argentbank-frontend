@@ -25,3 +25,24 @@ export const dataFeatures = [
         textP: "We use top of the line encryption to make sure your data and money is always safe."
     }
 ];
+
+export const dataAccounts = [
+    {
+        id: 1,
+        accountTitle: "Checking (x8349)",
+        accountAmount: 2082.79,
+        accountAmountDescription: "Available"
+    },
+    {
+        id: 2,
+        accountTitle: "Savings (x6712)",
+        accountAmount: 10928.42,
+        accountAmountDescription: "Available"
+    },
+    {
+        id: 3,
+        accountTitle: "Credit Card (x8349)",
+        accountAmount: 184.30,
+        accountAmountDescription: "Current"
+    }
+]

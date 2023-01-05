@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import Nav from "../components/Nav";
 import "../utils/style/User.css";
 // import { users } from "../services/MockedData";
+import { dataAccounts } from "../data/data";
+import Account from "../components/Account";
 
 function User() {
     useEffect(() => { document.title = "Argent Bank - Utilisateur" })
@@ -15,7 +17,11 @@ function User() {
                     <button className="edit-button">Edit Name</button>
                 </div>
                 <h2 className="sr-only">Accounts</h2>
-                <section className="account">
+                {dataAccounts.map(dataAccount =>
+                    <Account accountTitle={dataAccount.accountTitle} accountAmount={dataAccount.accountAmount} accountAmountDescription={dataAccount.accountAmountDescription} key={dataAccount.id} />
+                )}
+
+                {/* <section className="account">
                     <div className="account-content-wrapper">
                         <h3 className="account-title">Argent Bank Checking (x8349)</h3>
                         <p className="account-amount">$2,082.79</p>
@@ -44,7 +50,7 @@ function User() {
                     <div className="account-content-wrapper cta">
                         <button className="transaction-button">View transactions</button>
                     </div>
-                </section>
+                </section> */}
             </div>
         </div>
     )
