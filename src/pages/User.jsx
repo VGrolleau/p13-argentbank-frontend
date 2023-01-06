@@ -13,16 +13,81 @@ function User() {
             <Nav isSignIn={true} />
             <div className="main bg-dark">
                 <div className="header">
-                    <h1>Welcome back<br />Tony Jarvis!</h1>
-                    <button className="edit-button">Edit Name</button>
+                    <h1>Welcome back<br /><span id="user-name"><span id="user-firstname">Tony</span> <span id="user-lastname">Jarvis</span>!</span></h1>
+                    <div>
+                        <button className="edit-button" onClick={openEdit}>Edit Name</button>
+                        <form className="edit-form">
+                            <div id="edit-user-name">
+                                <input type="text" id="input-firstname" />
+                                <input type="text" id="input-lastname" />
+                            </div>
+                            <div id="edit-buttons">
+                                <input type="submit" value="Save" className="edit-form-button" onClick={editUserName} />
+                                <input type="reset" value="Cancel" className="edit-form-button" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <h2 className="sr-only">Accounts</h2>
                 {dataAccounts.map(dataAccount =>
-                    <Account accountTitle={dataAccount.accountTitle} accountAmount={dataAccount.accountAmount} accountAmountDescription={dataAccount.accountAmountDescription} key={dataAccount.id} />
+                    <Account
+                        accountTitle={dataAccount.accountTitle}
+                        accountAmount={dataAccount.accountAmount}
+                        accountAmountDescription={dataAccount.accountAmountDescription}
+                        key={dataAccount.id}
+                    />
                 )}
             </div>
         </div>
     )
+}
+
+let userName;
+let editForm;
+let editButton;
+let userFirstname;
+let userLastname;
+let inputFirstname;
+let inputLastname;
+
+function openEdit() {
+    userName = document.getElementById("user-name");
+    userName.style.display = "none";
+    editButton = document.querySelector(".edit-button");
+    editButton.style.display = "none";
+
+    editForm = document.querySelector(".edit-form");
+    editForm.style.display = "block";
+
+    inputFirstname = document.getElementById("input-firstname");
+    userFirstname = document.getElementById("user-firstname");
+    inputFirstname.value = userFirstname.textContent;
+
+    inputLastname = document.getElementById("input-lastname");
+    userLastname = document.getElementById("user-lastname");
+    inputLastname.value = userLastname.textContent;
+}
+
+function editUserName(e) {
+    e.preventDefault();
+    userName = document.getElementById("user-name");
+    userName.style.display = "initial";
+    editButton = document.querySelector(".edit-button");
+    editButton.style.display = "initial";
+
+    editForm = document.querySelector(".edit-form");
+    editForm.style.display = "none";
+
+    inputFirstname = document.getElementById("input-firstname");
+    userFirstname = document.getElementById("user-firstname");
+    userFirstname.textContent = inputFirstname.value;
+
+    inputLastname = document.getElementById("input-lastname");
+    userLastname = document.getElementById("user-lastname");
+    userLastname.textContent = inputLastname.value;
+
+    let navUserFirstname = document.getElementById("nav-user-firstname");
+    navUserFirstname.textContent = inputFirstname.value;
 }
 
 export default User;

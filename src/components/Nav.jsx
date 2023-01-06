@@ -18,7 +18,7 @@ function Nav(props) {
                 ? <div>
                     <NavLink to="/user" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>
-                        Tony
+                        <span id="nav-user-firstname">Tony</span>
                     </NavLink>
                     <NavLink to="/" className="main-nav-item">
                         <i className="fa fa-sign-out"></i>

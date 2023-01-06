@@ -6,6 +6,10 @@
     padding: 10px;
 }
 
+.edit-form {
+    display: none;
+}
+
 .header {
     color: #fff;
     margin-bottom: 2rem;
