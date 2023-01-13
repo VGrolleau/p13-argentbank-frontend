@@ -10,7 +10,7 @@ function User() {
     // console.log(users);
     return (
         <div>
-            <Nav isSignIn={true} />
+            <Nav isLogged={true} />
             <div className="main bg-dark">
                 <div className="header">
                     <h1>Welcome back<br /><span id="user-name"><span id="user-firstname">Tony</span> <span id="user-lastname">Jarvis</span>!</span></h1>

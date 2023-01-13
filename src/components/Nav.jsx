@@ -3,7 +3,7 @@ import argentBankLogo from "../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
 
 function Nav(props) {
-    const IS_SIGN_IN = props.isSignIn;
+    const IS_LOGGED = props.isLogged;
     return (
         <nav className="main-nav">
             <NavLink to="/" className="main-nav-logo">
@@ -14,7 +14,7 @@ function Nav(props) {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
-            {IS_SIGN_IN
+            {IS_LOGGED
                 ? <div>
                     <NavLink to="/user" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>

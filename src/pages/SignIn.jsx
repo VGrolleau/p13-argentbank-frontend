@@ -7,13 +7,14 @@ function SignIn() {
     useEffect(() => { document.title = "Argent Bank - Connexion" })
     return (
         <div>
-            <Nav isSignIn={false} />
+            <Nav isLogged={false} />
             <div className="main bg-dark">
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>
                     {/* TODO: Change method when getting call API */}
                     <form method="GET" action="/user">
+                        {/* <form onSubmit={submitHandler}> */}
                         <div className="input-wrapper">
                             <label htmlFor="email">Email</label>
                             <input type="email" id="email" />
@@ -29,8 +30,7 @@ function SignIn() {
                         {/* PLACEHOLDER DUE TO STATIC SITE */}
                         {/* <NavLink to="/user" className="sign-in-button">Sign In</NavLink> */}
                         {/* SHOULD BE THE BUTTON BELOW */}
-                        {/* <button className="sign-in-button">Sign In</button> */}
-                        <input type="submit" className="sign-in-button" value="Sign In" />
+                        <button className="sign-in-button">Sign In</button>
                     </form>
                 </section>
             </div>
