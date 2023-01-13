@@ -6,7 +6,7 @@ import { dataAccounts } from "../data/data";
 import Account from "../components/Account";
 
 function User() {
-    useEffect(() => { document.title = "Argent Bank - Utilisateur" });
+    useEffect(() => { document.title = "Argent Bank - User" });
     // console.log(users);
     return (
         <div>

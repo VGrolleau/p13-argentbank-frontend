@@ -29,7 +29,8 @@ function SignIn() {
                         {/* PLACEHOLDER DUE TO STATIC SITE */}
                         {/* <NavLink to="/user" className="sign-in-button">Sign In</NavLink> */}
                         {/* SHOULD BE THE BUTTON BELOW */}
-                        <button className="sign-in-button">Sign In</button>
+                        {/* <button className="sign-in-button">Sign In</button> */}
+                        <input type="submit" className="sign-in-button" value="Sign In" />
                     </form>
                 </section>
             </div>
