@@ -1,13 +1,54 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import "../utils/style/User.css";
 // import { users } from "../services/MockedData";
 import { dataAccounts } from "../data/data";
 import Account from "../components/Account";
+import { useParams } from "react-router";
 
 function User() {
     useEffect(() => { document.title = "Argent Bank - User" });
     // console.log(users);
+    const token = useParams().userToken;
+
+    const [data, setData] = useState(null);
+    // const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    };
+    fetch('http://localhost:3001/api/v1/user/profile', requestOptions)
+        .then(response => response.json())
+    /* TODO: FIND WHYTHEN DATA SEND REQUESTS IN CONTINUE */
+    // .then((data) => {
+    //     setData(data);
+    //     console.log(`Status ${data.status} : ${data.message}`, data.body);
+    // })
+    // .then(async response => {
+    //     const isJson = response.headers.get('content-type')?.includes('application/json');
+    //     const data = isJson && await response.json();
+
+    //     // check for error response
+    //     if (!response.ok) {
+    //         // get error message from body or default to response status
+    //         const error = (data && data.message) || response.status;
+    //         return Promise.reject(error);
+    //     }
+
+    //     setData(data);
+    //     console.log(`Status ${data.status} : ${data.message}`, data.body);
+    // })
+    // .catch(error => {
+    //     setError(error.toString());
+    //     console.error('There was an error!', error);
+    // });
+
     return (
         <div>
             <Nav isLogged={true} />

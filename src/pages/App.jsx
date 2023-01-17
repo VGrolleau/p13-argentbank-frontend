@@ -1,24 +1,27 @@
 import { useEffect } from 'react';
-import Feature from '../components/Feature';
-import Hero from '../components/Hero';
-import Nav from '../components/Nav';
-import '../utils/style/App.css';
-import { dataFeatures } from '../data/data';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignIn from './SignIn';
+import User from './User';
+import Error from './Error';
+import Footer from '../components/Footer';
+import Home from './Home';
+// import Nav from './components/Nav';
 
 function App() {
   useEffect(() => { document.title = "Argent Bank - Accueil" });
   return (
-    <div className="App">
-      <Nav isLogged={false} />
-      <Hero />
-      <section className="features">
-        <h2 className="sr-only">Features</h2>
-
-        {dataFeatures.map(dataFeature =>
-          <Feature icon={dataFeature.iconURL} altImg={dataFeature.altImg} textH3={dataFeature.textH3} textP={dataFeature.textP} key={dataFeature.id} />
-        )}
-      </section>
-    </div>
+    <>
+      <BrowserRouter>
+        {/* <Nav /> */}
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/profile/:userToken" element={<User />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+    </>
   );
 }
 

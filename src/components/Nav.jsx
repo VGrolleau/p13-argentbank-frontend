@@ -16,7 +16,7 @@ function Nav(props) {
             </NavLink>
             {IS_LOGGED
                 ? <div>
-                    <NavLink to="/user" className="main-nav-item">
+                    <NavLink to="/profile" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>
                         <span id="nav-user-firstname">Tony</span>
                     </NavLink>
@@ -26,7 +26,7 @@ function Nav(props) {
                     </NavLink>
                 </div>
                 : <div>
-                    <NavLink to="/sign-in" className="main-nav-item">
+                    <NavLink to="/login" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>
                         Sign In
                     </NavLink>

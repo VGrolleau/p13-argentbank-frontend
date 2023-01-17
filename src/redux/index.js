@@ -3,19 +3,24 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const loginSlice = createSlice({
     name: "login",
     initialState: {
-        isLogin: false,
+        isLogged: false,
         token: ''
     },
     reducers: {
         loginSuccess: (state, action) => {
-            state = { isLogin: true, token: action.payload.body.token };
+            state = { isLogged: true, token: action.payload.body.token };
             return state;
         },
-        loginFail: (state, action) => { },
-        logout: (state, action) => { }
+        loginFail: (state, action) => {
+            state = { isLogged: false, token: null, error: action.payload };
+            return state;
+        },
+        logout: (state) => {
+            state = { isLogged: false, token: null };
+            return state;
+        }
     }
 });
-
 export const { loginSuccess, loginFail, logout } = loginSlice.actions;
 
 const profileSlice = createSlice({
@@ -32,7 +37,6 @@ const profileSlice = createSlice({
         profileReset: (state, action) => { }
     }
 });
-
 export const { profileSuccess, profileUpdate, profileFail, profileReset } = profileSlice.actions;
 
 export const store = configureStore({
