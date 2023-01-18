@@ -30,8 +30,8 @@ function SignIn() {
                 password: password
             })
         };
-        fetch('http://localhost:3001/api/v1/user/login', requestOptions)
-            // fetch(`http://192.168.1.12:3001/api/v1/user/login`, requestOptions)
+        // fetch('http://localhost:3001/api/v1/user/login', requestOptions)
+        fetch(`http://192.168.1.12:3001/api/v1/user/login`, requestOptions)
             .then(async response => {
                 const isJson = response.headers.get('content-type')?.includes('application/json');
                 const data = isJson && await response.json();
@@ -53,11 +53,9 @@ function SignIn() {
             });
     }
 
-    // useEffect(() => {
     if (token) {
         navigate(`/profile/${token}`)
     }
-    // }, [token, navigate]);
 
     return (
         <div>
@@ -66,8 +64,6 @@ function SignIn() {
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>
-                    {/* TODO: Change method when getting call API */}
-                    {/* <form method="GET" action="/user"> */}
                     <form onSubmit={submitHandler}>
                         <div className="input-wrapper">
                             <label htmlFor="email">Email</label>
