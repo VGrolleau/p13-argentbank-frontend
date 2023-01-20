@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import "../utils/style/User.css";
-// import { users } from "../services/MockedData";
 import { dataAccounts } from "../data/data";
 import Account from "../components/Account";
-import { useParams } from "react-router";
+import { userProfile } from "../services/APIService";
+// import { useParams } from "react-router";
 
 function User() {
     useEffect(() => { document.title = "Argent Bank - User" });
-    // console.log(users);
-    const token = useParams().userToken;
+    const token = localStorage.getItem("userToken");
 
-    const [data, setData] = useState(null);
+    // const [data, setData] = useState(null);
     // const [token, setToken] = useState(null);
     // const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,26 +19,26 @@ function User() {
     const [lastName, setLastName] = useState("");
 
     useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-        };
-        // fetch('http://localhost:3001/api/v1/user/profile', requestOptions)
-        fetch('http://192.168.1.12:3001/api/v1/user/profile', requestOptions)
-            .then(response => response.json())
-            .then((data) => {
-                setData(data);
-                setFirstName(data.body.firstName);
-                setLastName(data.body.lastName);
-                console.log(`Status ${data.status} : ${data.message}`, data.body);
-            })
-            .catch(error => {
+        const getData = async () => {
+            try {
+                let actualData = await userProfile(token);
+
+                // check for error response
+                if (!actualData.body) {
+                    // get error message from body or default to response status
+                    const error = (actualData && actualData.message) || actualData.status;
+                    return Promise.reject(error);
+                }
+                // setData(actualData);
+                setFirstName(actualData.body.firstName);
+                setLastName(actualData.body.lastName);
+                console.log(`Status ${actualData.status} : ${actualData.message}`, actualData.body);
+            } catch (error) {
                 setError(error.toString());
                 console.error('There was an error!', error);
-            })
+            }
+        }
+        getData();
     }, [token]);
 
     let userName = document.getElementById("user-name");
@@ -51,7 +50,7 @@ function User() {
     let inputLastname = document.getElementById("input-lastname");
     let navUserFirstname = document.getElementById("nav-user-firstname");
 
-    if (data) {
+    if (firstName) {
         navUserFirstname.textContent = firstName;
     }
 
@@ -59,6 +58,7 @@ function User() {
         <div>
             <Nav isLogged={true} />
             <div className="main bg-dark">
+                {/* TODO: Redecouper header en composant */}
                 <div className="header">
                     <h1>Welcome back<br /><span id="user-name"><span id="user-firstname">{firstName}</span> <span id="user-lastname">{lastName}</span>!</span></h1>
                     <div>

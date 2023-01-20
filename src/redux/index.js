@@ -1,14 +1,17 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+// TODO: reconstruire avec setUser, connectUser, updateUser, disconnectUser en une slice User
+
 const loginSlice = createSlice({
     name: "login",
     initialState: {
         isLogged: false,
-        token: ''
+        token: '',
+        error: null
     },
     reducers: {
         loginSuccess: (state, action) => {
-            state = { isLogged: true, token: action.payload.body.token };
+            state = { isLogged: true, token: action.payload.body.token, error: null };
             return state;
         },
         loginFail: (state, action) => {
@@ -16,7 +19,7 @@ const loginSlice = createSlice({
             return state;
         },
         logout: (state) => {
-            state = { isLogged: false, token: null };
+            state = { isLogged: false, token: null, error: null };
             return state;
         }
     }
@@ -33,11 +36,10 @@ const profileSlice = createSlice({
     reducers: {
         profileSuccess: (state, action) => { },
         profileUpdate: (state, action) => { },
-        profileFail: (state, action) => { },
         profileReset: (state, action) => { }
     }
 });
-export const { profileSuccess, profileUpdate, profileFail, profileReset } = profileSlice.actions;
+export const { profileSuccess, profileUpdate, profileReset } = profileSlice.actions;
 
 export const store = configureStore({
     reducer: {

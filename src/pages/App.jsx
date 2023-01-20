@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/login" element={<SignIn />} />
-          <Route path="/profile/:userToken" element={<User />} />
+          <Route path="/profile" element={<User />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

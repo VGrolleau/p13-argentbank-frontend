@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import { NavLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import { useNavigate } from "react-router";
+import { login } from "../services/APIService";
 // import { loginFail, loginSuccess } from "../redux";
 // import { useDispatch, useSelector } from "react-redux";
 
@@ -12,49 +13,35 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [data, setData] = useState(null);
-    const [token, setToken] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [data, setData] = useState(null);
+    // const [token, setToken] = useState(null);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        };
-        // fetch('http://localhost:3001/api/v1/user/login', requestOptions)
-        fetch(`http://192.168.1.12:3001/api/v1/user/login`, requestOptions)
-            .then(async response => {
-                const isJson = response.headers.get('content-type')?.includes('application/json');
-                const data = isJson && await response.json();
+        try {
+            let actualData = await login(email, password);
 
-                // check for error response
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
-                }
+            // check for error response
+            if (!actualData.body) {
+                // get error message from body or default to response status
+                const error = (actualData && actualData.message) || actualData.status;
+                return Promise.reject(error);
+            }
 
-                setData(data);
-                setToken(data.body.token);
-                console.log(`Status ${data.status} : ${data.message} | Token : ${data.body.token}`);
-            })
-            .catch(error => {
-                setError(error.toString());
-                console.error('There was an error!', error);
-            });
-    }
-
-    if (token) {
-        navigate(`/profile/${token}`)
+            // setData(actualData);
+            // setToken(actualData.body.token);
+            localStorage.setItem("userToken", actualData.body.token);
+            console.log(`Status ${actualData.status} : ${actualData.message} | Token : ${actualData.body.token}`);
+            navigate(`/profile`)
+        } catch (error) {
+            // setError(error.toString());
+            console.error('There was an error!', error);
+        }
     }
 
     return (
@@ -77,9 +64,6 @@ function SignIn() {
                             <input type="checkbox" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
-                        {/* PLACEHOLDER DUE TO STATIC SITE */}
-                        {/* <NavLink to="/user" className="sign-in-button">Sign In</NavLink> */}
-                        {/* SHOULD BE THE BUTTON BELOW */}
                         <button className="sign-in-button">Sign In</button>
                     </form>
                 </section>
