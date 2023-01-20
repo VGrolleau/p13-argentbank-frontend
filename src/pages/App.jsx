@@ -5,14 +5,14 @@ import User from './User';
 import Error from './Error';
 import Footer from '../components/Footer';
 import Home from './Home';
-// import Nav from './components/Nav';
+import Nav from '../components/Nav';
 
 function App() {
   useEffect(() => { document.title = "Argent Bank - Accueil" });
   return (
     <>
       <BrowserRouter>
-        {/* <Nav /> */}
+        <Nav />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/login" element={<SignIn />} />

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Feature from "../components/Feature";
 import Hero from "../components/Hero";
-import Nav from "../components/Nav";
 import { dataFeatures } from "../data/data";
 import '../utils/style/App.css';
 
@@ -9,7 +8,6 @@ function Home() {
     useEffect(() => { document.title = "Argent Bank - Accueil" });
     return (
         <div className="App">
-            <Nav isLogged={false} />
             <Hero />
             <section className="features">
                 <h2 className="sr-only">Features</h2>

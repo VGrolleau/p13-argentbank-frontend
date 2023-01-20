@@ -1,13 +1,5 @@
 import { updateUserProfile } from "../services/APIService";
 
-const userName = document.getElementById("user-name");
-const editButton = document.querySelector(".edit-button");
-const editForm = document.querySelector(".edit-form");
-const userFirstname = document.getElementById("user-firstname");
-const userLastname = document.getElementById("user-lastname");
-const inputFirstname = document.getElementById("input-firstname");
-const inputLastname = document.getElementById("input-lastname");
-
 function EditUsername(props) {
     const navUserFirstname = props.navUserFirstname;
     const firstName = props.firstName;

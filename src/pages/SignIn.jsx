@@ -1,11 +1,9 @@
 import "../utils/style/SignIn.css";
 import { useEffect, useState } from "react";
-// import { NavLink } from "react-router-dom";
-import Nav from "../components/Nav";
 import { useNavigate } from "react-router";
 import { login } from "../services/APIService";
-// import { loginFail, loginSuccess } from "../redux";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { connectUser } from "../redux";
 
 function SignIn() {
     useEffect(() => { document.title = "Argent Bank - Connexion" });
@@ -13,12 +11,8 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // const [data, setData] = useState(null);
-    // const [token, setToken] = useState(null);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -33,20 +27,15 @@ function SignIn() {
                 return Promise.reject(error);
             }
 
-            // setData(actualData);
-            // setToken(actualData.body.token);
-            localStorage.setItem("userToken", actualData.body.token);
-            console.log(`Status ${actualData.status} : ${actualData.message} | Token : ${actualData.body.token}`);
+            dispatch(connectUser(actualData.body.token))
             navigate(`/profile`)
         } catch (error) {
-            // setError(error.toString());
             console.error('There was an error!', error);
         }
     }
 
     return (
         <div>
-            <Nav isLogged={false} />
             <div className="main bg-dark">
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>

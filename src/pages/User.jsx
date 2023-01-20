@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
-import Nav from "../components/Nav";
+import { useEffect } from "react";
 import "../utils/style/User.css";
 import { dataAccounts } from "../data/data";
 import Account from "../components/Account";
 import { getUserProfile } from "../services/APIService";
 import EditUsername from "../components/EditUsername";
-// import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../redux";
 
 function User() {
     useEffect(() => { document.title = "Argent Bank - User" });
-    const token = localStorage.getItem("userToken");
 
-    // const [data, setData] = useState(null);
-    // const [token, setToken] = useState(null);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const token = useSelector((state) => state.user.token);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const getData = async () => {
@@ -29,18 +23,18 @@ function User() {
                     // get error message from body or default to response status
                     const error = (actualData && actualData.message) || actualData.status;
                     return Promise.reject(error);
-                }
-                // setData(actualData);
-                setFirstName(actualData.body.firstName);
-                setLastName(actualData.body.lastName);
-                console.log(`Status ${actualData.status} : ${actualData.message}`, actualData.body);
+                };
+
+                dispatch(getUser({ firstName: actualData.body.firstName, lastName: actualData.body.lastName }));
             } catch (error) {
-                // setError(error.toString());
                 console.error('There was an error!', error);
             }
         }
         getData();
-    }, [token]);
+    }, [token, dispatch]);
+
+    const firstName = useSelector((state) => state.user.firstName);
+    const lastName = useSelector((state) => state.user.lastName);
 
     let navUserFirstname = document.getElementById("nav-user-firstname");
 
@@ -50,9 +44,7 @@ function User() {
 
     return (
         <div>
-            <Nav isLogged={true} />`
             <div className="main bg-dark">
-                {/* TODO: Redecouper header en composant */}
                 <div className="header">
                     <h1>Welcome back</h1>
                     <EditUsername navUserFirstname={navUserFirstname} firstName={firstName} lastName={lastName} token={token} />
