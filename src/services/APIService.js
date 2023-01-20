@@ -10,13 +10,27 @@ export function login(email, password) {
     return fetchAPI("login", requestOptions)
 }
 
-export function userProfile(token) {
+export function getUserProfile(token) {
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         }
+    };
+    return fetchAPI("profile", requestOptions);
+}
+export function updateUserProfile(token, firstName, lastName) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName
+        })
     };
     return fetchAPI("profile", requestOptions);
 }
