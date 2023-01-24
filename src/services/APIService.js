@@ -36,7 +36,8 @@ export function updateUserProfile(token, firstName, lastName) {
 }
 
 async function fetchAPI(url, requestOptions) {
-    let result = await fetch(`http://localhost:3001/api/v1/user/${url}`, requestOptions);
+    let result = await fetch(`http://192.168.1.12:3001/api/v1/user/${url}`, requestOptions);
+    // let result = await fetch(`http://localhost:3001/api/v1/user/${url}`, requestOptions);
     let actualData = await result.json();
 
     return actualData;
