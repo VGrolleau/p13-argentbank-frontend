@@ -1,14 +1,12 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom";
-import Nav from '../components/Nav';
-// import '../../utils/style/Error.css'
+import '../utils/style/Error.css'
 
 function Error() {
     useEffect(() => { document.title = "Argent Bank - 404" })
     return (
-        <div>
+        <div className="bg-dark">
             <section className="section-error">
-                <Nav />
                 <h1>404</h1>
                 <p>
                     Oups! La page que vous demandez n’existe pas.
