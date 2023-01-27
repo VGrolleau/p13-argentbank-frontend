@@ -8,7 +8,9 @@ host: localhost:3001
 basePath: /api/v1
 schemes:
   - http
+
 paths:
+  # User Module
   /user/login:
     post:
       tags:
@@ -33,6 +35,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/signup:
     post:
       tags:
@@ -57,6 +60,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/profile:
     post:
       security:
@@ -82,6 +86,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
     put:
       security:
         - Bearer: []
@@ -112,14 +117,16 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/accounts:
-    post:
+
+  # User Transactions
+  /accounts:
+    get:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User accounts
-      description: API for getting all user's accounts
+      description: API for getting all user accounts
       parameters:
         - type: string
           in: header
@@ -130,15 +137,20 @@ paths:
         - application/json
       responses:
         '200':
-          description: All user's accounts getting Successfully
+          description: All user accounts getting successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid Fields
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}:
-    post:
+
+  /accounts/{accountId}:
+    get:
       security:
         - Bearer: []
       tags:
@@ -165,46 +177,51 @@ paths:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions:
-    post:
+
+  /transactions:
+    get:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User transactions
-      description: API for getting all user's transactions from an account
+      description: API for getting all account user transactions
       parameters:
         - type: string
           in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
       produces:
         - application/json
       responses:
         '200':
-          description: All user's transactions of account getting successfully
+          description: All user's transactions of an account getting successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}:
+
+  /transactions/{transactionId}:
     post:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User transaction
-      description: API for getting all user's transactions from an account
+      description: API for creating an account user transaction
       parameters:
         - type: string
           in: header
@@ -212,34 +229,33 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
-        - in: path
           name: transactionId
-          description: User's transaction Id
+          description: User transaction Id
           type: integer
           required: true
       produces:
         - application/json
       responses:
         '200':
-          description: All user's transactions of account getting successfully
+          description: Request OK
           schema:
             $ref: '#/definitions/ApiResponse'
+        '201':
+          description: A user transaction of an account creating successfully
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}/category:
-    post:
+
+    get:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User transaction
-      description: API for getting category from a transaction
+      description: API for getting an account user transaction
       parameters:
         - type: string
           in: header
@@ -247,74 +263,66 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
-        - in: path
           name: transactionId
-          description: User's transaction Id
+          description: User transaction Id
           type: integer
           required: true
       produces:
         - application/json
       responses:
         '200':
-          description: Category getting successfully
+          description: A user transaction of an account getting successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
+
     put:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User transaction
-      description: API for fetching category from a transaction
+      description: API for fetching a transaction category and note
       parameters:
         - type: string
           in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
-        - in: path
-          name: transactionId
-          description: User's transaction Id
-          type: integer
-          required: true
         - in: body
           name: body
-          description: Update transaction category
+          description: Update transaction
           required: true
           schema:
-            $ref: '#/definitions/TransactionCategory'
+            $ref: '#/definitions/Transaction'
       produces:
         - application/json
       responses:
         '200':
-          description: Category getting successfully
+          description: Category and note of a transaction fetching successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}/note:
-    post:
+
+    delete:
       security:
         - Bearer: []
       tags:
         - User Transactions
       summary: User transaction
-      description: API for getting note from a transaction
+      description: API for deleting an account user transaction
       parameters:
         - type: string
           in: header
@@ -322,71 +330,32 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
-        - in: path
           name: transactionId
-          description: User's transaction Id
+          description: User transaction Id
           type: integer
           required: true
       produces:
         - application/json
       responses:
         '200':
-          description: Note getting successfully
+          description: A user transaction of an account deleting successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Transactions
-      summary: User transaction
-      description: API for fetching note from a transaction
-      parameters:
-        - type: string
-          in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: path
-          name: accountId
-          description: User's account Id
-          type: integer
-          required: true
-        - in: path
-          name: transactionId
-          description: User's transaction Id
-          type: integer
-          required: true
-        - in: body
-          name: body
-          description: Update transaction note
-          required: true
-          schema:
-            $ref: '#/definitions/TransactionNote'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Note getting successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
   User:
     properties:
@@ -402,6 +371,7 @@ definitions:
       lastName:
         type: string
         description: user last name
+
   Login:
     properties:
       email:
@@ -410,6 +380,7 @@ definitions:
       password:
         type: string
         description: user password
+
   ApiResponse:
     type: object
     properties:
@@ -424,11 +395,13 @@ definitions:
             type: string
           email:
             type: string
+
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+
   UserProfile:
     type: object
     properties:
@@ -436,13 +409,11 @@ definitions:
         type: string
       lastName:
         type: string
-  TransactionCategory:
+
+  Transaction:
     type: object
     properties:
       category:
         type: string
-  TransactionNote:
-    type: object
-    properties:
       note:
         type: string
