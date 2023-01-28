@@ -14,6 +14,14 @@ function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (localStorage.length > 0) {
+            navigate('/profile');
+        }
+    })
+
+    const rememberMe = document.getElementById("remember-me");
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -28,11 +36,17 @@ function SignIn() {
             }
 
             dispatch(connectUser(actualData.body.token))
+
+            if (rememberMe.checked) {
+                localStorage.setItem("userToken", actualData.body.token);
+            }
             navigate(`/profile`)
         } catch (error) {
             console.error('There was an error!', error);
         }
     }
+
+    localStorage.clear();
 
     return (
         <div>

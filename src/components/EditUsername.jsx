@@ -64,7 +64,6 @@ async function editUserName(token, navUserFirstname, e) {
 
     try {
         let actualData = await updateUserProfile(token, inputFirstname.value, inputLastname.value);
-        console.log(actualData);
 
         // check for error response
         if (!actualData.body) {
@@ -72,8 +71,6 @@ async function editUserName(token, navUserFirstname, e) {
             const error = (actualData && actualData.message) || actualData.status;
             return Promise.reject(error);
         }
-
-        console.log(`Status ${actualData.status} : ${actualData.message} | User : ${actualData.body.firstName} ${actualData.body.lastName}`);
     } catch (error) {
         console.error('There was an error!', error);
     }
