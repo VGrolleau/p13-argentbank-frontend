@@ -1,9 +1,10 @@
-.edit-button {
+.edit-button, .edit-form-button {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
     font-weight: bold;
     padding: 10px;
+    margin-top: 10px;
 }
 
 .edit-form {
@@ -23,5 +24,17 @@ h1{
 
 h2 {
     font-size: 2em;
-    margin-top: 0;
+    margin: 0;
+}
+
+#edit-user-name {
+    margin-bottom: 30px;
+}
+
+#edit-user-name input:first-child, .edit-form-button:first-child {
+    margin-right: 15px;
+}
+
+#edit-user-name input:last-child, .edit-form-button:last-child {
+    margin-left: 15px;
 }
