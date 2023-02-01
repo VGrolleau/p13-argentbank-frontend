@@ -20,6 +20,7 @@ export function getUserProfile(token) {
     };
     return fetchAPI("profile", requestOptions);
 }
+
 export function updateUserProfile(token, firstName, lastName) {
     const requestOptions = {
         method: 'PUT',
