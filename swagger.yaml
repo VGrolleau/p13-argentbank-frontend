@@ -185,6 +185,7 @@ paths:
           description: Internal Server Error
 
   /transactions:
+    # TODO: completer avec date (anneeMois) dans body, décrire dans description que c'est facultatif et préciser les cas possibles
     get:
       security:
         - Bearer: []
@@ -198,6 +199,12 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: body
+          name: body
+          description: Get all account user transactions by date (yearMonth), can do with no date, only year, or year and month
+          required: false
+          schema:
+            $ref: '#/definitions/Transactions'
       produces:
         - application/json
       responses:
@@ -209,8 +216,6 @@ paths:
           description: Invalid Fields
         '401':
           description: Unauthorized
-        '404':
-          description: Not Found
         '500':
           description: Internal Server Error
 
@@ -289,12 +294,17 @@ paths:
       tags:
         - User Transactions
       summary: User transaction
-      description: API for fetching a transaction category and note
+      description: API for modify a transaction category and note
       parameters:
         - type: string
           in: header
           name: Authorization
           description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          description: User transaction Id
+          type: integer
           required: true
         - in: body
           name: body
@@ -306,13 +316,15 @@ paths:
         - application/json
       responses:
         '200':
-          description: Category and note of a transaction fetching successfully
+          description: Category and note of a transaction modify successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
         '401':
           description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
 
@@ -409,6 +421,16 @@ definitions:
         type: string
       lastName:
         type: string
+
+  Transactions:
+    type: object
+    properties:
+      month:
+        type: number
+        description: current month
+      year:
+        type: number
+        description: current year
 
   Transaction:
     type: object
