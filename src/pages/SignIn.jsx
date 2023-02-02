@@ -35,7 +35,7 @@ function SignIn() {
                 return Promise.reject(error);
             }
 
-            dispatch(connectUser(actualData.body.token))
+            dispatch(connectUser(actualData.body.token));
 
             if (rememberMe.checked) {
                 localStorage.setItem("userToken", actualData.body.token);
@@ -46,7 +46,7 @@ function SignIn() {
         }
     }
 
-    localStorage.clear();
+    // localStorage.clear();
 
     return (
         <div>

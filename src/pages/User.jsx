@@ -10,7 +10,10 @@ import { getUser } from "../redux";
 function User() {
     useEffect(() => { document.title = "Argent Bank - User" });
 
-    const token = useSelector((state) => state.user.token);
+    const selectorToken = useSelector((state) => state.user.token);
+    let token;
+    localStorage.getItem("userToken") ? token = getToken(localStorage.getItem("userToken")) : token = getToken(selectorToken);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,10 +38,12 @@ function User() {
 
     const firstName = useSelector((state) => state.user.firstName);
     const lastName = useSelector((state) => state.user.lastName);
+    localStorage.setItem("userFirstname", firstName);
 
     let navUserFirstname = document.getElementById("nav-user-firstname");
 
     if (firstName) {
+        //     navUserFirstname = document.getElementById("nav-user-firstname");
         navUserFirstname.textContent = firstName;
     }
 
@@ -61,6 +66,11 @@ function User() {
             </div>
         </div>
     )
+}
+
+function getToken(token) {
+    let userToken = token;
+    return userToken;
 }
 
 export default User;
