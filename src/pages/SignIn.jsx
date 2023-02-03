@@ -46,8 +46,6 @@ function SignIn() {
         }
     }
 
-    // localStorage.clear();
-
     return (
         <div>
             <div className="main bg-dark">

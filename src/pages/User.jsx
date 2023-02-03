@@ -38,12 +38,13 @@ function User() {
 
     const firstName = useSelector((state) => state.user.firstName);
     const lastName = useSelector((state) => state.user.lastName);
-    localStorage.setItem("userFirstname", firstName);
+    if (localStorage.getItem("userToken")) {
+        localStorage.setItem("userFirstname", firstName);
+    }
 
     let navUserFirstname = document.getElementById("nav-user-firstname");
 
     if (firstName) {
-        //     navUserFirstname = document.getElementById("nav-user-firstname");
         navUserFirstname.textContent = firstName;
     }
 
