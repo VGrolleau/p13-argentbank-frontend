@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/p13-argentbank-frontend/static/css/main.865f858a.css",
-    "main.js": "/p13-argentbank-frontend/static/js/main.134b91aa.js",
+    "main.js": "/p13-argentbank-frontend/static/js/main.91c7b32a.js",
     "static/media/bank-tree.jpeg": "/p13-argentbank-frontend/static/media/bank-tree.4d59987c7c62b024b014.jpeg",
     "static/media/icon-security.png": "/p13-argentbank-frontend/static/media/icon-security.1c819fa1007a5c53e6a9.png",
     "static/media/argentBankLogo.png": "/p13-argentbank-frontend/static/media/argentBankLogo.e031a16c76ab9bbbf78a.png",
@@ -9,10 +9,10 @@
     "static/media/icon-money.png": "/p13-argentbank-frontend/static/media/icon-money.8ec88bb1a5070fd6513a.png",
     "index.html": "/p13-argentbank-frontend/index.html",
     "main.865f858a.css.map": "/p13-argentbank-frontend/static/css/main.865f858a.css.map",
-    "main.134b91aa.js.map": "/p13-argentbank-frontend/static/js/main.134b91aa.js.map"
+    "main.91c7b32a.js.map": "/p13-argentbank-frontend/static/js/main.91c7b32a.js.map"
   },
   "entrypoints": [
     "static/css/main.865f858a.css",
-    "static/js/main.134b91aa.js"
+    "static/js/main.91c7b32a.js"
   ]
 }
